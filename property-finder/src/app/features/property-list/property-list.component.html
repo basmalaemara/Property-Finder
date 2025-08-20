@@ -1,0 +1,32 @@
+<section class="mx-auto max-w-7xl p-4" [@routeFade]>
+  <h1 class="text-2xl font-semibold mb-4">Properties</h1>
+
+  <div *ngIf="properties.length === 0" class="p-6 border rounded bg-white">
+    <p class="text-gray-600">No properties match your criteria.</p>
+  </div>
+
+  <div class="grid gap-4 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4" [@listStagger]>
+    <article *ngFor="let p of properties"
+             class="border rounded-lg overflow-hidden bg-white hover:shadow transition hover:-translate-y-0.5">
+      <a [routerLink]="['/property', p.id]" class="block">
+        <div class="relative">
+          <img [src]="(p.images && p.images[0]) || ''" [alt]="p.title" class="w-full h-44 object-cover" />
+          <span class="absolute top-2 left-2 text-xs px-2 py-1 rounded bg-black/70 text-white">
+            {{ p.listingCategory === 'rent' ? 'For Rent' : (p.listingCategory === 'buy' ? 'For Sale' : 'Commercial') }}
+          </span>
+        </div>
+        <div class="p-3">
+          <h2 class="font-medium truncate" [title]="p.title">{{ p.title }}</h2>
+          <p class="text-sm text-gray-600">{{ p.location }} • {{ p.type | titlecase }}</p>
+          <p class="mt-1 font-semibold">
+            {{ p.price | currency:'EGP':'symbol':'1.0-0' }}
+            <span *ngIf="p.listingCategory === 'rent'" class="text-gray-500 text-sm">/ mo</span>
+          </p>
+          <p class="text-xs text-gray-500 mt-1">
+            <ng-container *ngIf="p.bedrooms > 0">{{ p.bedrooms }} bd • </ng-container>{{ p.bathrooms }} ba • {{ p.area }} m²
+          </p>
+        </div>
+      </a>
+    </article>
+  </div>
+</section>

@@ -1,0 +1,33 @@
+<!-- Category pills -->
+<div class="mb-3 flex flex-wrap gap-2">
+  <button
+    *ngFor="let cat of categories"
+    type="button"
+    (click)="onCategorySelect(cat)"
+    class="h-9 px-3 rounded-full border text-sm"
+    [class.bg-blue-600]="form.value.listingCategory === cat"
+    [class.text-white]="form.value.listingCategory === cat"
+  >
+    {{ cat === '' ? 'All' : (cat === 'buy' ? 'Buy' : (cat === 'rent' ? 'Rent' : 'Commercial')) }}
+  </button>
+</div>
+
+<form [formGroup]="form" (ngSubmit)="apply()" class="mb-4 grid gap-3 sm:grid-cols-2 lg:grid-cols-6">
+  <input formControlName="location" placeholder="Location / Address" class="border rounded px-3 h-10 bg-white" />
+
+  <select formControlName="type" class="border rounded px-3 h-10 bg-white">
+    <option value="">Any type</option>
+    <option *ngFor="let t of typeOptions" [value]="t">
+      {{ t | titlecase }}
+    </option>
+  </select>
+
+  <input type="number" formControlName="minPrice" placeholder="Min Price" class="border rounded px-3 h-10 bg-white" />
+  <input type="number" formControlName="maxPrice" placeholder="Max Price" class="border rounded px-3 h-10 bg-white" />
+  <input type="number" formControlName="bedrooms" placeholder="Min Bedrooms" class="border rounded px-3 h-10 bg-white" />
+
+  <div class="sm:col-span-2 lg:col-span-1 flex gap-2">
+    <button type="submit" class="h-10 px-4 rounded bg-blue-600 text-white w-full">Search</button>
+    <button type="button" (click)="reset()" class="h-10 px-4 rounded border">Reset</button>
+  </div>
+</form>

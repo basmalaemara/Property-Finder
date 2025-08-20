@@ -1,0 +1,120 @@
+<section class="bg-gradient-to-b from-blue-50 to-transparent" [@pageFade]>
+  <!-- Hero -->
+<div class="mx-auto max-w-7xl px-4 py-10 md:py-16" [@fadeUp]>
+  <h1 class="text-3xl md:text-5xl font-extrabold leading-tight">
+    Find your next place in just one click
+  </h1>
+  <p class="mt-3 text-gray-600 max-w-2xl">
+    Rent or buy homes, and discover commercial spaces across the city.
+  </p>
+  <div class="mt-5 flex gap-3">
+    <a routerLink="/search" class="h-11 px-5 rounded bg-blue-600 text-white inline-flex items-center">Search</a>
+    <a routerLink="/properties" class="h-11 px-5 rounded border inline-flex items-center">View all</a>
+  </div>
+</div>
+
+
+  <!-- Promo/Ads row -->
+  <div class="mx-auto max-w-7xl px-4 grid gap-4 md:grid-cols-3" [@fadeUp]>
+    <div class="rounded-2xl p-6 border bg-white shadow-sm">
+      <p class="text-xs uppercase text-gray-500">Ad</p>
+      <h3 class="text-lg font-semibold mt-1">List your property</h3>
+      <p class="text-sm text-gray-600 mt-1">Reach thousands of buyers and renters.</p>
+      <a routerLink="/search" class="text-blue-600 text-sm mt-2 inline-block hover:underline">Get started →</a>
+    </div>
+    <div class="rounded-2xl p-6 border bg-gradient-to-r from-indigo-50 to-pink-50 shadow-sm">
+      <p class="text-xs uppercase text-gray-500">Guide</p>
+      <h3 class="text-lg font-semibold mt-1">Neighborhood insights</h3>
+      <p class="text-sm text-gray-600 mt-1">Compare areas by price and lifestyle.</p>
+      <a routerLink="/properties" class="text-blue-600 text-sm mt-2 inline-block hover:underline">Explore →</a>
+    </div>
+    <div class="rounded-2xl p-6 border bg-white shadow-sm">
+      <p class="text-xs uppercase text-gray-500">Ad</p>
+      <h3 class="text-lg font-semibold mt-1">Zero-stress moving</h3>
+      <p class="text-sm text-gray-600 mt-1">Packers & movers with exclusive rates.</p>
+      <a routerLink="/search" class="text-blue-600 text-sm mt-2 inline-block hover:underline">Book now →</a>
+    </div>
+  </div>
+
+  <!-- Featured RENT -->
+  <div class="mx-auto max-w-7xl px-4 mt-10">
+    <div class="flex items-center justify-between mb-3">
+      <h2 class="text-xl font-semibold">For Rent</h2>
+      <a routerLink="/properties" class="text-sm text-blue-600 hover:underline">View all</a>
+    </div>
+    <div class="grid gap-4 grid-cols-1 sm:grid-cols-2 lg:grid-cols-4" [@staggerCards]>
+      <article *ngFor="let p of rentProps" class="border rounded-lg overflow-hidden bg-white hover:shadow transition hover:-translate-y-0.5">
+        <a [routerLink]="['/property', p.id]" class="block">
+          <div class="relative">
+            <img [src]="p.images[0]" [alt]="p.title" class="w-full h-44 object-cover" />
+            <span class="absolute top-2 left-2 text-xs px-2 py-1 rounded bg-black/70 text-white">For Rent</span>
+          </div>
+          <div class="p-3">
+            <h3 class="font-medium truncate" [title]="p.title">{{ p.title }}</h3>
+            <p class="text-sm text-gray-600">{{ p.location }} • {{ p.type | titlecase }}</p>
+            <p class="mt-1 font-semibold">
+              {{ p.price | currency:'EGP':'symbol':'1.0-0' }} <span class="text-gray-500 text-sm">/ mo</span>
+            </p>
+            <p class="text-xs text-gray-500 mt-1">
+              <ng-container *ngIf="p.bedrooms > 0">{{ p.bedrooms }} bd • </ng-container>{{ p.bathrooms }} ba • {{ p.area }} m²
+            </p>
+          </div>
+        </a>
+      </article>
+    </div>
+  </div>
+
+  <!-- Featured BUY -->
+  <div class="mx-auto max-w-7xl px-4 mt-10">
+    <div class="flex items-center justify-between mb-3">
+      <h2 class="text-xl font-semibold">For Sale</h2>
+      <a routerLink="/properties" class="text-sm text-blue-600 hover:underline">View all</a>
+    </div>
+    <div class="grid gap-4 grid-cols-1 sm:grid-cols-2 lg:grid-cols-4" [@staggerCards]>
+      <article *ngFor="let p of buyProps" class="border rounded-lg overflow-hidden bg-white hover:shadow transition hover:-translate-y-0.5">
+        <a [routerLink]="['/property', p.id]" class="block">
+          <div class="relative">
+            <img [src]="p.images[0]" [alt]="p.title" class="w-full h-44 object-cover" />
+            <span class="absolute top-2 left-2 text-xs px-2 py-1 rounded bg-black/70 text-white">For Sale</span>
+          </div>
+          <div class="p-3">
+            <h3 class="font-medium truncate" [title]="p.title">{{ p.title }}</h3>
+            <p class="text-sm text-gray-600">{{ p.location }} • {{ p.type | titlecase }}</p>
+            <p class="mt-1 font-semibold">{{ p.price | currency:'EGP':'symbol':'1.0-0' }}</p>
+            <p class="text-xs text-gray-500 mt-1">
+              <ng-container *ngIf="p.bedrooms > 0">{{ p.bedrooms }} bd • </ng-container>{{ p.bathrooms }} ba • {{ p.area }} m²
+            </p>
+          </div>
+        </a>
+      </article>
+    </div>
+  </div>
+
+  <!-- Featured COMMERCIAL -->
+  <div class="mx-auto max-w-7xl px-4 mt-10 mb-12">
+    <div class="flex items-center justify-between mb-3">
+      <h2 class="text-xl font-semibold">Commercial</h2>
+      <a routerLink="/properties" class="text-sm text-blue-600 hover:underline">View all</a>
+    </div>
+    <div class="grid gap-4 grid-cols-1 sm:grid-cols-2 lg:grid-cols-4" [@staggerCards]>
+      <article *ngFor="let p of commercialProps" class="border rounded-lg overflow-hidden bg-white hover:shadow transition hover:-translate-y-0.5">
+        <a [routerLink]="['/property', p.id]" class="block">
+          <div class="relative">
+            <img [src]="p.images[0]" [alt]="p.title" class="w-full h-44 object-cover" />
+            <span class="absolute top-2 left-2 text-xs px-2 py-1 rounded bg-black/70 text-white">Commercial</span>
+          </div>
+          <div class="p-3">
+            <h3 class="font-medium truncate" [title]="p.title">{{ p.title }}</h3>
+            <p class="text-sm text-gray-600">{{ p.location }} • {{ p.type | titlecase }}</p>
+            <p class="mt-1 font-semibold">
+              {{ p.price | currency:'EGP':'symbol':'1.0-0' }} <span *ngIf="p.bedrooms===0" class="text-gray-500 text-sm">/ mo</span>
+            </p>
+            <p class="text-xs text-gray-500 mt-1">
+              <ng-container *ngIf="p.bedrooms > 0">{{ p.bedrooms }} bd • </ng-container>{{ p.bathrooms }} ba • {{ p.area }} m²
+            </p>
+          </div>
+        </a>
+      </article>
+    </div>
+  </div>
+</section>
